@@ -116,14 +116,18 @@ func main() {
 	ocrDo(filename)
 	lintDo(filename)
 	if catfile == true {
-		catDo(linterfile)
+		catDo(filename+".txt", true)
+		catDo(linterfile, false)
 	}
 	os.Remove(filename + ".png")
 	os.Remove(filename + ".txt")
 	os.Exit(0)
 }
 
-func catDo(filename string) {
+func catDo(filename string, cFlag bool) {
+	cnt := 1
+
+	fmt.Println(" ------------ " + filename + " ---------")
 	eFlag := true
 	// ファイルオープン
 	fp, err := os.Open(filename)
@@ -137,10 +141,15 @@ func catDo(filename string) {
 	for scanner.Scan() {
 		// ここで一行ずつ処理
 		out := scanner.Text()
-		fmt.Println(out)
+		if cFlag == true {
+			fmt.Printf("[%d] %s\n", cnt, out)
+		} else {
+			fmt.Printf("%s\n", out)
+		}
 		if len(out) > 0 {
 			eFlag = false
 		}
+		cnt = cnt + 1
 	}
 	if eFlag == true {
 		fmt.Println(" -- No Lint! -- ")
@@ -271,7 +280,7 @@ func ShortCutDo(resizer int) {
 				if shiftFlag == true && ctrlFlag == true {
 					if int(k.VKCode) == shortcutwindow {
 						debugLog("Shortcut: capture from forground window!")
-						getScreenCapture()
+						getScreenCapture(resizer)
 					} else if int(k.VKCode) == shortcutclipboard {
 						debugLog("Shortcut: capture from clipboard")
 						shortcutclipboardDo(resizer)
@@ -301,7 +310,8 @@ func shortcutclipboardDo(resizer int) {
 	ocrDo(filename)
 	lintDo(filename)
 	if catfile == true {
-		catDo(linterfile)
+		catDo(filename+".txt", true)
+		catDo(linterfile, false)
 	}
 	os.Remove(filename + ".png")
 	os.Remove(filename + ".txt")
@@ -332,12 +342,7 @@ func GetWindowRect(hwnd HWND, rect *_RECT) (err error) {
 	return
 }
 
-func SetActiveWindow(hwnd HWND) {
-	syscall.Syscall(procSetActiveWindow.Addr(), 4, uintptr(hwnd), 0, 0)
-	syscall.Syscall(procSetForegroundWindow.Addr(), 5, uintptr(hwnd), 0, 0)
-}
-
-func getWindow() uintptr {
+func getWindow(funcName string) uintptr {
 	hwnd, _, _ := syscall.Syscall(procGetForegroundWindow.Addr(), 6, 0, 0, 0)
 	if debug == true {
 		fmt.Printf("currentWindow: handle=0x%x\n", hwnd)
@@ -345,25 +350,37 @@ func getWindow() uintptr {
 	return hwnd
 }
 
-func getScreenCapture() {
+func getScreenCapture(resizer int) {
 	filename := RandStr(8)
 
 	var rect _RECT
-	GetWindowRect(HWND(getWindow()), &rect)
+	GetWindowRect(HWND(getWindow("GetForegroundWindow")), &rect)
 	if debug == true {
 		fmt.Printf("window rect: ")
 		fmt.Println(rect)
 	}
 
-	img, err := screenshot.Capture(int(rect.Left), int(rect.Top), int(rect.Right), int(rect.Bottom))
+	img, err := screenshot.Capture(int(rect.Left)+10, int(rect.Top)+10, int(rect.Right-rect.Left)-20, int(rect.Bottom-rect.Top)-20)
 	if err != nil {
 		panic(err)
 	}
-	save(img, filename)
+	save(img, filename+".png")
+
+	filename = resizeImage(loadFromFile(filename+".png"), resizer)
+	debugLog("filename: " + filename)
+
+	ocrDo(filename)
+	lintDo(filename)
+	if catfile == true {
+		catDo(filename+".txt", true)
+		catDo(linterfile, false)
+	}
+	os.Remove(filename + ".png")
+	os.Remove(filename + ".txt")
 }
 
 func save(img *image.RGBA, filePath string) {
-	file, err := os.Create(filePath + ".png")
+	file, err := os.Create(filePath)
 	if err != nil {
 		panic(err)
 	}
