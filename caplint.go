@@ -3,7 +3,6 @@ package main
 //set PATH=%PATH%;c:\Program Files\Tesseract-OCR
 
 import (
-	"bufio"
 	"bytes"
 	"flag"
 	"fmt"
@@ -29,8 +28,8 @@ import (
 )
 
 var (
-	debug, logging, catfile                         bool
-	ocr, linter, linterfile                         string
+	debug, logging                                  bool
+	ocr, linter                                     string
 	shortcutwindow, shortcutclipboard, shortcutexit int
 	targetHwnd                                      uintptr
 	rs1Letters                                      = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -72,14 +71,12 @@ func main() {
 	_Shortcutwindow := flag.Int("shortcutwindow", 65, "[-shortcutwindow=input forground window when shotcut key mode (default 'a')]")
 	_Shortcutclipboard := flag.Int("shortcutclipboard", 90, "[-shortcutclipboatrd=input clipboard image when shotcut key mode (default 'z')]")
 	_Shortcutexit := flag.Int("shortexit", 81, "[-shortcutexit=shotcut key mode exit (default 'q')]")
-	_Catfile := flag.Bool("catfile", true, "[-catfile=cat linter text (true is enable)]")
 	_Resize := flag.Int("resize", 2, "[-resize=resize count (default x2)]")
 
 	flag.Parse()
 
 	debug = bool(*_Debug)
 	logging = bool(*_Logging)
-	catfile = bool(*_Catfile)
 	shortcutwindow = int(*_Shortcutwindow)
 	shortcutclipboard = int(*_Shortcutclipboard)
 	shortcutexit = int(*_Shortcutexit)
@@ -115,74 +112,42 @@ func main() {
 
 	ocrDo(filename)
 	lintDo(filename)
-	if catfile == true {
-		catDo(filename+".txt", true)
-		catDo(linterfile, false)
-	}
 	os.Remove(filename + ".png")
 	os.Remove(filename + ".txt")
 	os.Exit(0)
-}
-
-func catDo(filename string, cFlag bool) {
-	cnt := 1
-
-	fmt.Println(" ------------ " + filename + " ---------")
-	eFlag := true
-	// ファイルオープン
-	fp, err := os.Open(filename)
-	if err != nil {
-		// エラー処理
-	}
-	defer fp.Close()
-
-	scanner := bufio.NewScanner(fp)
-
-	for scanner.Scan() {
-		// ここで一行ずつ処理
-		out := scanner.Text()
-		if cFlag == true {
-			fmt.Printf("[%d] %s\n", cnt, out)
-		} else {
-			fmt.Printf("%s\n", out)
-		}
-		if len(out) > 0 {
-			eFlag = false
-		}
-		cnt = cnt + 1
-	}
-	if eFlag == true {
-		fmt.Println(" -- No Lint! -- ")
-	}
 }
 
 func ocrDo(filename string) {
 	command := strings.Replace(ocr, "{}", filename, -1)
 	debugLog("ocr: " + command)
 
-	out, err := exec.Command("cmd", "/c", command).Output()
+	cmd := exec.Command("cmd", "/c", command)
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		debugLog(fmt.Sprint(err) + ": " + string(output))
+	} else {
+		debugLog(string(output))
 	}
-
-	debugLog(string(out))
 }
 
 func lintDo(filename string) {
 	command := strings.Replace(linter, "{}", filename, -1)
 	debugLog("linter: " + command)
 
-	out, err := exec.Command("cmd", "/c", command).Output()
+	cmd := exec.Command("cmd", "/c", command)
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(fmt.Sprint(err) + ": " + string(output))
+		debugLog(fmt.Sprint(err) + ": " + string(output))
+	} else {
+		fmt.Println(" -- No Lint! -- ")
+		debugLog(string(output))
 	}
-
-	debugLog(string(out))
 }
 
 func loadConfig(configFile string) {
 	loadOptions := ini.LoadOptions{}
-	loadOptions.UnparseableSections = []string{"tesseract", "textlint", "linterfile"}
+	loadOptions.UnparseableSections = []string{"tesseract", "textlint"}
 
 	cfg, err := ini.LoadSources(loadOptions, configFile)
 	if err != nil {
@@ -195,7 +160,6 @@ func loadConfig(configFile string) {
 
 	setStructs("tesseract", cfg.Section("tesseract").Body(), 1)
 	setStructs("textlint", cfg.Section("textlint").Body(), 2)
-	setStructs("linterfile", cfg.Section("linterfile").Body(), 3)
 }
 
 func debugLog(message string) {
@@ -240,9 +204,6 @@ func setStructs(configType, datas string, flag int) {
 				debugLog(v)
 			} else if flag == 2 {
 				linter = v
-				debugLog(v)
-			} else {
-				linterfile = v
 				debugLog(v)
 			}
 		}
@@ -309,10 +270,6 @@ func shortcutclipboardDo(resizer int) {
 
 	ocrDo(filename)
 	lintDo(filename)
-	if catfile == true {
-		catDo(filename+".txt", true)
-		catDo(linterfile, false)
-	}
 	os.Remove(filename + ".png")
 	os.Remove(filename + ".txt")
 }
@@ -371,10 +328,6 @@ func getScreenCapture(resizer int) {
 
 	ocrDo(filename)
 	lintDo(filename)
-	if catfile == true {
-		catDo(filename+".txt", true)
-		catDo(linterfile, false)
-	}
 	os.Remove(filename + ".png")
 	os.Remove(filename + ".txt")
 }
