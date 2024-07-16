@@ -126,5 +126,8 @@ Go言語なのでバイナリファイル消してあげればOK！（流石Go�
 ## -shortexit
 
 # ライセンス
+Apache License 2.0
+MIT License
+ISC License
 
 
