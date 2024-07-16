@@ -383,19 +383,14 @@ func resizeImage(img image.Image, resizecount int) string {
 	h := bounds.Dy()
 	//fmt.Printf("(image size) w: %d h:%d\n", w, h)
 
-	// ここでリサイズします
-	// 片方のサイズを0にするとアスペクト比固定してくれます
 	resizedImg := resize.Resize(uint(w*resizecount), uint(h*resizecount), img, resize.NearestNeighbor)
 
-	// 書き出すファイル名を指定します
 	output, err := os.Create(filename + ".png")
 	if err != nil {
 		log.Fatal(err)
 	}
-	// 最後にファイルを閉じる
 	defer output.Close()
 
-	// 画像のエンコード(書き込み)
 	if err := png.Encode(output, resizedImg); err != nil {
 		log.Fatal(err)
 	}
