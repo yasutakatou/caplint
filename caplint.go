@@ -28,7 +28,7 @@ import (
 )
 
 var (
-	debug, logging                                  bool
+	debug, logging, nodel                           bool
 	ocr, linter                                     string
 	shortcutwindow, shortcutclipboard, shortcutexit int
 	targetHwnd                                      uintptr
@@ -72,6 +72,7 @@ func main() {
 	_Shortcutclipboard := flag.Int("shortcutclipboard", 90, "[-shortcutclipboatrd=input clipboard image when shotcut key mode (default 'z')]")
 	_Shortcutexit := flag.Int("shortexit", 81, "[-shortcutexit=shotcut key mode exit (default 'q')]")
 	_Resize := flag.Int("resize", 2, "[-resize=resize count (default x2)]")
+	_NoDelete := flag.Bool("nodelete", false, "[-nodelete=no delete temp file mode (true is enable)]")
 
 	flag.Parse()
 
@@ -80,6 +81,7 @@ func main() {
 	shortcutwindow = int(*_Shortcutwindow)
 	shortcutclipboard = int(*_Shortcutclipboard)
 	shortcutexit = int(*_Shortcutexit)
+	nodel = bool(*_NoDelete)
 
 	if Exists(*_Config) == true {
 		loadConfig(*_Config)
@@ -112,8 +114,10 @@ func main() {
 
 	ocrDo(filename)
 	lintDo(filename)
-	os.Remove(filename + ".png")
-	os.Remove(filename + ".txt")
+	if nodel == false {
+		os.Remove(filename + ".png")
+		os.Remove(filename + ".txt")
+	}
 	os.Exit(0)
 }
 
@@ -270,8 +274,10 @@ func shortcutclipboardDo(resizer int) {
 
 	ocrDo(filename)
 	lintDo(filename)
-	os.Remove(filename + ".png")
-	os.Remove(filename + ".txt")
+	if nodel == false {
+		os.Remove(filename + ".png")
+		os.Remove(filename + ".txt")
+	}
 }
 
 func loadFromFile(filename string) image.Image {
@@ -308,7 +314,7 @@ func getWindow(funcName string) uintptr {
 }
 
 func getScreenCapture(resizer int) {
-	filename := RandStr(8)
+	filenametmp := RandStr(8)
 
 	var rect _RECT
 	GetWindowRect(HWND(getWindow("GetForegroundWindow")), &rect)
@@ -321,15 +327,18 @@ func getScreenCapture(resizer int) {
 	if err != nil {
 		panic(err)
 	}
-	save(img, filename+".png")
+	save(img, filenametmp+".png")
 
-	filename = resizeImage(loadFromFile(filename+".png"), resizer)
+	filename := resizeImage(loadFromFile(filenametmp+".png"), resizer)
 	debugLog("filename: " + filename)
 
 	ocrDo(filename)
 	lintDo(filename)
-	os.Remove(filename + ".png")
-	os.Remove(filename + ".txt")
+	if nodel == false {
+		os.Remove(filenametmp + ".png")
+		os.Remove(filename + ".png")
+		os.Remove(filename + ".txt")
+	}
 }
 
 func save(img *image.RGBA, filePath string) {
