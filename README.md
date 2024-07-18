@@ -187,8 +187,8 @@ OCRの読み取りうまくいかんわ、精度チューニングしたいわ�
 [Tesseractの日本語精度を上げる](https://scrapbox.io/villagepump/Tesseract%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E7%B2%BE%E5%BA%A6%E3%82%92%E4%B8%8A%E3%81%92%E3%82%8B)
 
 # ライセンス
-Apache License 2.0
-MIT License
+Apache License 2.0<br>
+MIT License<br>
 ISC License
 
 
