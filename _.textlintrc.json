@@ -1,0 +1,25 @@
+{
+  "plugins": {},
+  "filters": {},
+  "rules": {
+    "@textlint-ja/no-synonyms": true,
+    "ja-no-orthographic-variants": true,
+    "ja-no-redundant-expression": true,
+    "no-mix-dearu-desumasu": true,
+    "preset-ja-spacing": {
+	"ja-space-between-half-and-full-width": false,
+	"ja-no-space-around-parentheses": false,
+	"ja-no-space-between-full-width": false
+    },
+    "preset-ja-technical-writing": {
+        "ja-no-mixed-period": false,
+	"max-kanji-continuous-len": false,
+	"no-invalid-control-character": false,
+	"no-unmatched-pair": false,
+	"ja-unnatural-alphabet": false,
+	"sentence-length": false,
+	"no-zero-width-spaces": false
+    },
+    "spellcheck-tech-word": false,
+  }
+}
