@@ -31,6 +31,8 @@ OCRとLinterを組み合わせて文字認識にLinterをかけるツールで�
 
 - ② クリップボードにある画像にOCRをかけてLinterに流せます
 
+![image](https://github.com/user-attachments/assets/daf24849-3cc7-4bac-9859-912167a6b4b0)
+
 - ③ ショートカットキー打ち込むとクリップボードにある画像にOCRをかけてLinterに流せます
 
 - ④ ショートカットキー打ち込むと現在のアクティブウィンドウをキャプチャしてOCRをかけてLinterに流せます
