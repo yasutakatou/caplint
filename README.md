@@ -25,6 +25,8 @@
 
 # 動作画面
 
+~~ていうか、Linterでエラー出ているのだったら、このREADMEも直そうぜ！というツッコミ入れたくなりますよね・・・~~
+
 - ① **任意のファイルにOCRをかけてLinterに流せます**
 
 ![image](https://github.com/user-attachments/assets/22b5cb69-6750-4e52-ba2e-50f5bd386d35)
