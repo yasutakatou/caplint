@@ -1,6 +1,6 @@
 # caplint
 
-Markdownとかテキスト系じゃない、パワポやブラウザのスライドツールでも、サクサクとLinterでチェックできたらいいよね！を実装したツール
+**Markdownとかテキスト系じゃない、パワポやブラウザのスライドツールでも、サクサクとLinterでチェックできたらいいよね！を実装したツール**
 
 # こんなことありませんか？
 
@@ -8,36 +8,36 @@ Markdownとかテキスト系じゃない、パワポやブラウザのスライ
 パワポとか、Googleスライドなんかで書いている時は、[pptx2md](https://github.com/ssine/pptx2md)辺りで一回、Markdownに変換してからLinterにかけますよね。<br>
 となると、ショートカットみたいなのでLinterかけるのにやってやれなくは無いけど、ちょいちょい手間だし、まとめてやるとウンザリするくらい修正箇所出たりする<br>
 （自分で書いた文章の修正箇所にウンザリしてもねぇ、、）<br>
-それよっか、ページ単位くらいでサクッとLinterかけれないかなぁ、できればテキスト形式関係なく出来ると良いんだけど、、と思ってたらツール書いてた<br>
+それよっか、ページ単位くらいでサクッとLinterかけれないかなぁ、できればテキスト形式関係なく出来ると良いんだけど、、**と思ってたらツール書いてた**<br>
 
 # 機能
 
-OCRとLinterを組み合わせて文字認識にLinterをかけるツールです！<br>
+**OCRとLinterを組み合わせて文字認識にLinterをかけるツールです！**<br>
 すまん、手元にWindowsしか無いのでMacでは動かん！！
 
-- ① 任意のファイルにOCRをかけてLinterに流せます
-- ② クリップボードにある画像にOCRをかけてLinterに流せます
-- ③ ショートカットキー打ち込むとクリップボードにある画像にOCRをかけてLinterに流せます
-- ④ ショートカットキー打ち込むと現在のアクティブウィンドウをキャプチャしてOCRをかけてLinterに流せます
+- ① **任意のファイルにOCRをかけてLinterに流せます**
+- ② **クリップボードにある画像にOCRをかけてLinterに流せます**
+- ③ **ショートカットキー打ち込むとクリップボードにある画像にOCRをかけてLinterに流せます**
+- ④ **ショートカットキー打ち込むと現在のアクティブウィンドウをキャプチャしてOCRをかけてLinterに流せます**
 
 ④のモードはウィンドウまるごとキャプチャするのでメニューバーとかに文字がある場合はそれも認識しちゃうんで実用性はそこそこ・・・<br>
 ③が便利なので良いんじゃないですかね、一画面事にバンバンOCR→Linterかけてチェックできるので便利！
 
 # 動作画面
 
-- ① 任意のファイルにOCRをかけてLinterに流せます
+- ① **任意のファイルにOCRをかけてLinterに流せます**
 
 ![image](https://github.com/user-attachments/assets/22b5cb69-6750-4e52-ba2e-50f5bd386d35)
 
-- ② クリップボードにある画像にOCRをかけてLinterに流せます
+- ② **クリップボードにある画像にOCRをかけてLinterに流せます**
 
 ![image](https://github.com/user-attachments/assets/daf24849-3cc7-4bac-9859-912167a6b4b0)
 
-- ③ ショートカットキー打ち込むとクリップボードにある画像にOCRをかけてLinterに流せます
+- ③ **ショートカットキー打ち込むとクリップボードにある画像にOCRをかけてLinterに流せます**
 
 ![2](https://github.com/user-attachments/assets/0b84556c-474d-42ff-a4be-5eb9cc8a1448)
 
-- ④ ショートカットキー打ち込むと現在のアクティブウィンドウをキャプチャしてOCRをかけてLinterに流せます
+- ④ **ショートカットキー打ち込むと現在のアクティブウィンドウをキャプチャしてOCRをかけてLinterに流せます**
 
 ![1](https://github.com/user-attachments/assets/32ca80fe-7fba-44ab-bc0a-dee23b3d1757)
 
@@ -49,7 +49,7 @@ OCRとLinterを組み合わせて文字認識にLinterをかけるツールで�
 
 [Tesseract OCR をWindowsにインストールする方法](https://gammasoft.jp/blog/tesseract-ocr-install-on-windows/)
 
-この辺の手順でWindowsにTesseractをインストールしてください。デフォでパスが通らないので↓とかでパス通してください
+この辺の手順で**WindowsにTesseractをインストールしてください**。デフォでパスが通らないので↓とかでパス通してください
 
 ```
 set PATH=%PATH%;c:\Program Files\Tesseract-OCR
@@ -61,7 +61,7 @@ set PATH=%PATH%;c:\Program Files\Tesseract-OCR
 
 [textlintで日本語の校正を行う](https://zenn.dev/yamane_yuta/articles/65886897cefa1e)
 
-この辺の手順でWindowsにtextlintをインストールしてください。あと↓のかんじでtextlintのルールもついでに入れてください
+この辺の手順で**Windowsにtextlintをインストールしてください**。あと↓のかんじでtextlintのルールもついでに入れてください
 
 ```
 npm install -D textlint-rule-preset-ja-spacing textlint-rule-preset-ja-technical-writing textlint-rule-no-mix-dearu-desumasu textlint-rule-ja-no-redundant-expression  @textlint-ja/textlint-rule-no-synonyms sudachi-synonyms-dictionary textlint-rule-ja-no-orthographic-variants
@@ -95,29 +95,29 @@ go build .
 
 ## ツール本体
 
-Go言語なのでバイナリファイル消してあげればOK！（流石Goシンプルでサイコー）
+Go言語なのでバイナリファイル消してあげればOK！（流石Go言語はシンプルでサイコー）
 
 # 使い方
 
-- 任意のファイルにOCRをかけてLinterに流せます
-- クリップボードにある画像にOCRをかけてLinterに流せます
-- ショートカットキー打ち込むとクリップボードにある画像にOCRをかけてLinterに流せます
-- ショートカットキー打ち込むと現在のアクティブウィンドウをキャプチャしてOCRをかけてLinterに流せます
+- **任意のファイルにOCRをかけてLinterに流せます**
+- **クリップボードにある画像にOCRをかけてLinterに流せます**
+- **ショートカットキー打ち込むとクリップボードにある画像にOCRをかけてLinterに流せます**
+- **ショートカットキー打ち込むと現在のアクティブウィンドウをキャプチャしてOCRをかけてLinterに流せます**
 
 なお、内部処理としてOCRの認識精度を上げるために読み込んだ画像をリサイズした画像を生成します。デフォルトは倍のサイズのpngファイルが出力されます
 
 # 設定ファイル
 
-OCRとLinterのチューニングとカスタマイズが出来るよう。設定ファイルから外部アプリを呼び出すようにしています。<br>
-デフォルトは　caplint.ini　というファイル名です。
+**OCRとLinterのチューニングとカスタマイズが出来るよう。設定ファイルから外部アプリを呼び出すようにしています**。<br>
+デフォルトは　**caplint.ini**　というファイル名です。
 
 ## [tesseract]　セクション
 
-OCRにあたるアプリを定義します。{}の部分にテンポラリで生成されるファイル名が入ります（置換して実行されます）
+OCRにあたるアプリを定義します。**{}の部分にテンポラリで生成されるファイル名が入ります**（置換して実行されます）
 
 ## [textlint]　セクション
 
-Linterにあたるアプリを定義します。{}の部分にテンポラリで生成されるファイル名が入ります（置換して実行されます）
+Linterにあたるアプリを定義します。**{}の部分にテンポラリで生成されるファイル名が入ります**（置換して実行されます）
 
 ```
 [tesseract]
