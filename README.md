@@ -132,28 +132,28 @@ npx textlint {}.txt --format pretty-error
 # オプション
 
 ```
--clipboard
-      [-clipboard=input clipboard image (true is enable)]
--config string
-      [-config=config file)] (default "caplint.ini")
--debug
-      [-debug=debug mode (true is enable)]
--file string
-      [-file=exists png file)] (default "text.png")
--log
-      [-log=logging mode (true is enable)]
--nodelete
-      [-nodelete=no delete temp file mode (true is enable)]
--resize int
-      [-resize=resize count (default x2)] (default 2)
--shortcut
-      [-shortcut=shortcut key mode (true is enable)]
--shortcutclipboard int
-      [-shortcutclipboatrd=input clipboard image when shotcut key mode (default 'z')] (default 90)
--shortcutwindow int
-      [-shortcutwindow=input forground window when shotcut key mode (default 'a')] (default 65)
--shortexit int
-      [-shortcutexit=shotcut key mode exit (default 'q')] (default 81)
+  -clipboard
+        [-clipboard=Mmode for reading images from the clipboard (true is enable)]
+  -config string
+        [-config=config file)] (default "caplint.ini")
+  -debug
+        [-debug=debug mode (true is enable)]
+  -file string
+        [-file=existing png files)] (default "text.png")
+  -log
+        [-log=logging mode (true is enable)]
+  -nodelete
+        [-nodelete=leave temporary files undeleted mode. for debugging purposes (true is enable)]
+  -resize int
+        [-resize=temporary resize and enlarge multiples (default 2)] (default 2)
+  -shortcut
+        [-shortcut=keep activated and use shortcut keys to perform readings in this mode (true is enable)]
+  -shortcutclipboard int
+        [-shortcutclipboatrd=shortcut keys for reading from the clipboard (default 'z')] (default 90)
+  -shortcutwindow int
+        [-shortcutwindow=shortcut key to read from a focused window (default 'a')] (default 65)
+  -shortexit int
+        [-shortcutexit=key to exit shortcut key mode (default 'q')] (default 81)
 ```
 
 ## -clipboard
