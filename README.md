@@ -190,15 +190,21 @@ pngファイル名を指定すると、その画像ファイルを元にOCRか�
 
 ## -shortcutclipboard
 
-ショートカット動作の時にクリップボードの画像からキャプチャさせる時のキーアサインです。デフォルトは z (Shift+Ctrl+z)です
+ショートカット動作の時にクリップボードの画像からキャプチャさせる時のキーアサインです。デフォルトは z (Shift+Ctrl+z)です<br>
+
+[ASCIIコードの10進数の数字をわりあてます](http://www3.nit.ac.jp/~tamura/ex2/ascii.html)
 
 ## -shortcutwindow
 
-ショートカット動作の時にフォアグラインドのウィンドウからキャプチャさせる時のキーアサインです。デフォルトは a (Shift+Ctrl+a)です
+ショートカット動作の時にフォアグラインドのウィンドウからキャプチャさせる時のキーアサインです。デフォルトは a (Shift+Ctrl+a)です<br>
+
+[ASCIIコードの10進数の数字をわりあてます](http://www3.nit.ac.jp/~tamura/ex2/ascii.html)
 
 ## -shortexit
 
-ショートカット動作の時にアプリを終了させる時のキーアサインです。デフォルトは q (Shift+Ctrl+q)です
+ショートカット動作の時にアプリを終了させる時のキーアサインです。デフォルトは q (Shift+Ctrl+q)です<br>
+
+[ASCIIコードの10進数の数字をわりあてます](http://www3.nit.ac.jp/~tamura/ex2/ascii.html)
 
 # その他
 
